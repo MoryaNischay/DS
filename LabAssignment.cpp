@@ -27,7 +27,7 @@ class Array{
 			}
 		}
 	}
-	int insert_arr(){
+	void insert_arr(){
 		cout<<"Enter the position to insert in: ";
 		cin>>position;
 		cout<<"Enter the number to be inserted: ";
@@ -40,6 +40,28 @@ class Array{
     	arr[position - 1] = ins;
  
     	
+	}
+	void del_arr(){
+		int del;
+		cout<<"Enter the position you want to delete from: "<<endl;
+		cin>>del;
+		for (int i=del-1;i<n;i++){
+			arr[i]=arr[i+1];
+			n=n-1;
+		}
+
+	}
+	void search(){
+		int sh,elem_pos;
+		cout<<"Enter the element you want to search: ";
+		cin>>sh;
+		for (int i=0;i<n;i++){
+			if (arr[i]==sh){
+				elem_pos=i+1;
+				break;
+			}
+		}
+		cout<<"Your Element was found at "<<elem_pos<< " position"<<endl;
 	}
 };
 int main(){
@@ -72,5 +94,9 @@ int main(){
 			ob.insert_arr();
 			ob.display_arr();
 	}
-	
+	cin>>c;
+	if (c==4){
+		ob.del_arr();
+		ob.display_arr();
+	}
 }
