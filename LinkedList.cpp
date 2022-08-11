@@ -27,6 +27,7 @@ int main(){
     third->next=NULL;
     
     
+    
     while (first!=NULL){
         cout<<first->data<<endl;
         first=first->next;
