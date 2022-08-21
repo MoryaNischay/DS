@@ -1,36 +1,38 @@
-#include<iostream>
+#include <cstddef>
+#include <iostream>
+
 using namespace std;
 
-class node{
+class Node {
     public:
         int data;
-        node * next;
+    Node * next;
 };
 
-int main(){
-    node *first=NULL;
-    node  *second=NULL;
-    node *third=NULL;
-    
-    first= new node();
-    second = new node();
-    third= new node();
-
-
-    first->data=1;
-    first->next=second;
-
-    second->data=2;
-    second->next=third;
-
-    third->data=3;
-    third->next=NULL;
-    
-    
-    
-    while (first!=NULL){
-        cout<<first->data<<endl;
-        first=first->next;
+void print_list(Node * n) {
+    while (n != NULL) {
+        cout << n->data << " ";
+        n = n->next;
     }
+}
 
+int main() {
+    Node * head = NULL;
+    Node * second = NULL;
+    Node * third = NULL;
+
+    head = new Node();
+    second = new Node();
+    third = new Node();
+
+    head->data = 1;
+    head->next = second;
+
+    second->data = 2;
+    second->next = third;
+
+    third->data = 3;
+    third->next = NULL;
+
+    print_list(head);
 }
