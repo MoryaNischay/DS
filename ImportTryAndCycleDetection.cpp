@@ -1,9 +1,9 @@
 #include <iostream>
-#include "LinkedListFuntion.cpp"
+#include "ListLibrary.cpp"
 using namespace std;
 
 int main(){
-    MakeList(20);
-    MakeList(10);
-    OutList(head);
+    MakeSinglyList(10);
+    MakeSinglyList(10);
+    OutSinglyList(head);
 }
