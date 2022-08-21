@@ -1,5 +1,14 @@
-10,20,30,40,50
+rev = 10
+head = 20
+rev next Null
+temp
+temp=20
+head 30
+temp next 10
+rev 20 
 
-when at 40 
-head = 40's next
-head-> 40;
+30 
+temp 30
+40
+temp next 20 
+20 

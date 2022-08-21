@@ -3,12 +3,14 @@ using namespace std;
 #define show cout<< 
 #define take cin>>
 #define after ->next
-class Node{
+#define space <<" "
+#define finl <<endl;
+struct Node{
     public:
         int data;
         Node *next;
 };                                                              
-//* Head and Tail for Singly linked lists
+
 Node *head=NULL,*tail=NULL;     
 
 //* Create Singly Linked list
@@ -47,6 +49,7 @@ Node* newNodeNoNext(int key){
     return temp; 
 } 
 
+//* Detect A looping Linked List
 bool DetectCycle(Node* head)
 {
     Node *slow = head, *fast = head;
@@ -61,6 +64,7 @@ bool DetectCycle(Node* head)
     return false;
 }
 
+//* Search your heart out
 void searchList(Node* head,int n){
     int count =0;
     if (head==NULL){
@@ -79,4 +83,19 @@ void searchList(Node* head,int n){
         }
     }   
 }
-
+//* This Doesn't work for some reason so just copy this code and change funny to your start variable
+void ReverseList(Node* funny){
+    Node* rev;
+    rev=funny;
+    funny=funny->next;
+    rev->next=NULL;
+    Node* temp;
+    while (funny!=NULL)
+    {
+        temp=funny;
+        funny=funny->next;
+        temp->next=rev;
+        rev=temp;
+    }
+    funny=rev;
+}

@@ -8,8 +8,4 @@ int main(){
     //pain after after after after after = pain after after;
     //* Infinite loop Creater
     OutSinglyList(pain);
-    if (DetectCycle(pain)){
-        show "Cycle Detected";
-    }
-    else show "No cycle";
     }
