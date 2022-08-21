@@ -1,0 +1,5 @@
+10,20,30,40,50
+
+when at 40 
+head = 40's next
+head-> 40;
