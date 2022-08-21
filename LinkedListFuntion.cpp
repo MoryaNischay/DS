@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
-
+#define show cout<< 
+#define take cin>>
 class Node{
     public:
         int data;
@@ -23,26 +24,26 @@ void MakeList(int n){
     }
 };
 
-void printList(Node *no){
+void OutList(Node *no){
     while (no!=NULL)
     {
-        cout<<no->data<<" ";
+        show no->data<<" ";
         no=no->next;
     }
     
 }
 
 int main(){
-    int n=1;
-    int a[20];
-    cout<<"Enter the Number of items in Linked List: \t";
-    cin>>n;
-    cout<<"Enter Data: \t"<<endl;
-    for(int i=0;i<n;i++){
-        cin>>a[i];
+    int no_items;
+    int ListArray[20];
+    show "Enter the Number of items in Linked List: \t";
+    take no_items;
+    show "Enter Data: \t"<<endl;
+    for(int i=0;i<no_items;i++){
+        take ListArray[i];
     }
-    for(int i=0;i<n;i++){
-        MakeList(a[i]);
+    for(int i=0;i<no_items;i++){
+        MakeList(ListArray[i]);
     }
-    printList(head);
+    OutList(head);
 }
