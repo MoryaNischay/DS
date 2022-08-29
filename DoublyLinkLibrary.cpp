@@ -35,6 +35,28 @@ void PrintDuo() {
    }
 }
 
+void AddAtStart(int StartData){
+   Node* FirstNew = new Node;
+   FirstNew->data=StartData;
+   FirstNew->next=head;
+   head=FirstNew;
+   FirstNew->prev=NULL;
+}
+
+void AddAtEnd(int EndData){
+   Node* EndNew = new Node;
+   EndNew->data=EndData;
+   Node* temp=head;
+
+   while (temp!=NULL)
+   {
+      temp=temp->next;
+   }
+   tail->next=EndNew;
+   EndNew->prev=tail;
+   
+}
+
 int main() {
    MakeDouList(3);
    MakeDouList(1);
