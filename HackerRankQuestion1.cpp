@@ -1,131 +1,92 @@
-#include<iostream>
-
+#include<bits/stdc++.h>
+#include <iostream>
 using namespace std;
-
-class A
-{
+//Implement the class Box  
+//l,b,h are integers representing the dimensions of the box
+class Box{
+    int l,b,h;
     public:
-        A(){
-            callA = 0;
-        }
-    private:
-        int callA;
-        void inc(){
-            callA++;
-        }
-
-    protected:
-        void func(int & a)
-        {
-            a = a * 2;
-            inc();
-        }
-    public:
-        int getA(){
-            return callA;
-        }
-};
-
-class B
-{
-    public:
-        B(){
-            callB = 0;
-        }
-    private:
-        int callB;
-        void inc(){
-            callB++;
-        }
-    protected:
-        void func(int & a)
-        {
-            a = a * 3;
-            inc();
-        }
-    public:
-        int getB(){
-            return callB;
-        }
-};
-
-class C
-{
-    public:
-        C(){
-            callC = 0;
-        }
-    private:
-        int callC;
-        void inc(){
-            callC++;
-        }
-    protected:
-        void func(int & a)
-        {
-            a = a * 5;
-            inc();
-        }
-    public:
-        int getC(){
-            return callC;
-        }
-};
-
-class D : public A,B,C
-{
-
-	int val;
-	public:
-		//Initially val is 1
-		 D()
-		 {
-		 	val = 1;
-		 }
+    Box(){
+        l=b=h=0;
+    }
+    Box(int len,int wid,int ht){
+        l=len;
+        b=wid;
+        h=ht;
+    }
+    Box(Box t){
         
-		 //Implement this function
-		 void update_val(int new_val)
-		 {
-            int a=new_val;
-            while (new_val!=0){
-                if (val==a){
-                    break;
-                }
-                if (new_val%2==0){
-                    A::func(val);
-                    new_val=new_val/2;
-                }
-                
-                else if (new_val%3==0){
-                    B::func(val);
-                    new_val=new_val/3;
-                }
-                
-                else if (new_val%5==0){
-                    C::func(val);
-                    new_val=new_val/5;
-                }
-            }
-		 }
-         
-		 //For Checking Purpose
-		 void check(int); //Do not delete this line.
+    }
 };
+// The class should have the following functions : 
+
+// Constructors: 
+// Box();
+// Box(int,int,int);
+// Box(Box);
 
 
+// int getLength(); // Return box's length
+// int getBreadth (); // Return box's breadth
+// int getHeight ();  //Return box's height
+// long long CalculateVolume(); // Return the volume of the box
 
-void D::check(int new_val)
+//Overload operator < as specified
+//bool operator<(Box& b)
+
+//Overload operator << as specified
+//ostream& operator<<(ostream& out, Box& B)
+
+
+void check2()
 {
-    update_val(new_val);
-    cout << "Value = " << val << endl << "A's func called " << getA() << " times " << endl << "B's func called " << getB() << " times" << endl << "C's func called " << getC() << " times" << endl;
-}
+	int n;
+	cin>>n;
+	Box temp;
+	for(int i=0;i<n;i++)
+	{
+		int type;
+		cin>>type;
+		if(type ==1)
+		{
+			cout<<temp<<endl;
+		}
+		if(type == 2)
+		{
+			int l,b,h;
+			cin>>l>>b>>h;
+			Box NewBox(l,b,h);
+			temp=NewBox;
+			cout<<temp<<endl;
+		}
+		if(type==3)
+		{
+			int l,b,h;
+			cin>>l>>b>>h;
+			Box NewBox(l,b,h);
+			if(NewBox<temp)
+			{
+				cout<<"Lesser\n";
+			}
+			else
+			{
+				cout<<"Greater\n";
+			}
+		}
+		if(type==4)
+		{
+			cout<<temp.CalculateVolume()<<endl;
+		}
+		if(type==5)
+		{
+			Box NewBox(temp);
+			cout<<NewBox<<endl;
+		}
 
+	}
+}
 
 int main()
 {
-    D d;
-    int new_val;
-    cin >> new_val;
-    d.check(new_val);
-
+	check2();
 }
