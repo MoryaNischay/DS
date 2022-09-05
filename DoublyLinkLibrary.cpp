@@ -1,4 +1,5 @@
 #include <iostream>
+#include<stdlib.h>
 using namespace std;
 struct Node {
    int data;
@@ -55,6 +56,53 @@ void AddAtEnd(int EndData){
    tail->next=EndNew;
    EndNew->prev=tail;
    
+}
+
+void MakeCircle(int circle){
+   Node* CircleNew = new Node;
+   CircleNew->data=circle;
+   if (tail==NULL){
+      head=tail=CircleNew;
+      tail->next=head;
+   }
+   else{
+      CircleNew->next=tail->next;
+      tail->next=CircleNew;
+      tail=CircleNew;
+   }
+}
+
+void InsertRandomCircle(int random,int circle){
+   Node* RandomNew = new Node;
+   RandomNew->data=circle;
+   Node* temp=head;
+   for (int i=0;i<random-1;i++){
+      temp=temp->next;
+   }
+   RandomNew->next=temp->next;
+   temp->next=RandomNew;
+}
+
+void DeleteCircle(int circle){
+   Node* temp=head;
+   Node* ptr;
+   for (int i=0;i<circle-1;i++){
+      temp=temp->next;
+   }
+   ptr=temp->next;
+   temp->next=ptr->next;
+   free(ptr);
+}
+
+void printCircle(){
+   if (head==NULL){
+      cout<<"Empty List";
+   }
+   Node* temp = head;
+   do {
+      cout<<temp->data<<" ";
+      temp=temp->next;
+   }while(temp!=head);
 }
 
 int main() {
