@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 #define show cout<<
 #define take cin>>
@@ -74,3 +75,4 @@ int main(){
     show "Current Queue: ";
     print(Q);
 }
+
