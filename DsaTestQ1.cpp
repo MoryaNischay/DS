@@ -1,136 +1,92 @@
 #include <iostream>
 using namespace std;
 
-struct node{
-	node *prev;
-	int val;
-	node *next;
-} *head, *tail ,*circle= NULL;
-
-void PrintDuo(int cn){
-    node *display = head;
-
-			for(int k=0;k<cn;k++){
-				cout << display->val << " " ;
-				display = display->next;
-			}
-			if(tail->next!=NULL){
-				cout << display->val << " " ;
-			}
-			cout << endl;
-}
-
-void AddatEnd(node *nnode){
-    node* NewNode = new node;
-    NewNode=nnode;
-    NewNode->next = head;
-					head->prev = NewNode;
-					head = head->prev;
-					head->prev = NULL;
-}
-
-void AddAtFront(node* nnode){
-    node* NewNode = new node;
-    tail->next = NewNode;
-	NewNode->prev = tail;
-	tail = tail->next;
-	tail->next = NULL;
-}
-
-void shuffle(int i1, int i2)
+int main() {
+    int n,k,i,j,t,f,z=0,y;
+    cin>>n>>k;
+    int a[n][n][n];
+    for(i=0;i<n;i++)
     {
-        node *Nnode=new node;
-        struct node* pos1,* pos2;
-        while(Nnode != NULL)
+        for(j=0;j<n;j++)
         {
-            if(i == i1)
-                pos1 = Nnode;
-            else if(i == i2)
-                pos2 = Nnode;
-            else if(Nnode == circle)
-                is_circle = true;
-            if(Nnode == tail)
-                break;
-            Nnode = Nnode->next;
-            i++;
+            for(t=0;t<n;t++)
+            {
+                cin>>a[i][j][t];
+            }
         }
-        if(pos1 == head && pos2 == tail)
+    }
+    for(f=0;f<k;f++)
+    {
+        y=a[0][0][0];
+        
+        for(j=0;j<n;j++)
         {
-            tail->next = head;
+        if(j%2==0)
+        {
+            
+            for(i=0;i<n;i++)
+            {z=a[i][j][i];
+            a[i][j][i]=y;
+            y=z;
+            }
+            
+            
         }
-        if(pos1 == head)
-        {
-            head = pos2->next;
-            head->prev = NULL;
-            tail->next = pos1;
-            pos1->prev = tail;
-            pos2->next = pos1;
-            tail = pos2;
+        else
+        {for(i=n-1;i>=0;i--)
+            {
+              z=a[i][j][i];  
+            a[i][j][i]=y;
+            y=z;
+            }
         }
-        else if(pos2 == tail)
+        }
+        a[0][0][0]=y;
+        
+        
+        
+        
+        y=a[n-1][0][0];
+        
+        for(j=0;j<n;j++)
         {
-            tail->next = pos1;
+        if(j%2==1)
+        {
+            
+            for(i=0;i<n;i++)
+            {
+                z=a[i][j][n-1-i];
+            a[i][j][n-1-i]=y;
+            y=z;
+            }
+            
+            
         }
         else
         {
-            (pos1->prev)->next = pos2->next;
-            (pos2->next)->prev = pos1->prev;
-            tail->next = pos1;
-            pos1->prev = tail;
-            pos2->next = pos1;
-            tail = pos2;
+            for(i=n-1;i>=0;i--)
+            {
+                z=a[i][j][n-i-1];
+            a[i][j][n-1-i]=y;
+            y=z;
+            }
+        }
+        }
+        a[n-1][0][0]=y;
+    }
+    
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+        {
+            for(t=0;t<n;t++)
+            {
+                cout<<a[i][j][t]<<" ";
+            }
         }
     }
-
-
-int main(){
-	int n,count=0; 
-	cin >> n;
-	int i =0;
-	while(n--){
-		char ch;
-		cin >> ch;
-
-		if(ch=='I'){
-			int x;
-			cin >> x;
-			node *NewNode = new node;
-			NewNode->val = x;
-
-			if(head==NULL && tail==NULL){
-				NewNode->prev = NULL;
-				NewNode->next = NULL;
-				head = NewNode;
-				tail = NewNode;
-			} else{
-				if(i%2!=0){
-					// add to the front of the list
-                    AddAtFront(NewNode);
-				} else{
-					// add to the back of the head
-					AddatEnd(NewNode);
-				}
-			}
-            
-			count++;
-
-
-		}
-        
-		if(ch=='D'){
-			// display tbe linked list
-			PrintDuo(count);
-		}
-        if(ch=='D'){
-			int a,b;
-            cin>>a>>b;
-            shuffle(a,b);
-
-		}
-		i++;
-	}
-
-
+    
+    
 
 	return 0;
 }

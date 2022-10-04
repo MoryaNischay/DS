@@ -1,56 +1,47 @@
 #include<iostream>
 using namespace std;
+#define show cout<<
+#define get cin>>
 struct Node {
    int data;
-   struct Node *prev;
+   
    struct Node *next;
 };
 
 
 struct Node* head = NULL;
-struct Node* tail= NULL;
+
 
 void push(int value){
-    Node* StackNode = new Node;
-    StackNode->data=value;
-    StackNode->next=NULL;
-    StackNode->prev=NULL;
+    Node* NewNode = new Node;
+    NewNode->data = value;
+    NewNode->next = NULL;
     if (head==NULL){
-        head=tail=StackNode;
+        head=NewNode;
     }
     else{
-        tail->next=StackNode;
-        StackNode->prev=tail;
-        tail=tail->next;
+        NewNode->next = head;
+        head=NewNode;
     }
 }
 
 void pop(){
-    Node* ptr;
-    ptr=tail;
-    if (tail==NULL){
-        cout<<"Stack underflow"<<endl;
+    if (head==NULL){
+        show "Stack is empty";
     }
     else {
-        cout<<"POPed element is "<<ptr->data<<endl;
-        tail=tail->prev;
-        delete ptr;
+        Node* temp = head;
+        show "Popped element is " << temp->data<<endl;
+        head = head->next;
+        delete temp;
     }
 }
-
-void displayStack(){
-    Node* temp;
-    temp=tail;
-    while(temp!=NULL){
-        cout<<temp->data<<" ";
-        temp=temp->prev;
-    }
-}
-
 
 
 int main(){
     push(1);
+    push(2);
+    push(3);
     pop();
     pop();
     

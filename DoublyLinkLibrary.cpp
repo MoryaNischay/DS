@@ -58,6 +58,17 @@ void AddAtEnd(int EndData){
    
 }
 
+//delete the last element of doubly linked list
+void DeleteLastDuo(){
+   Node* temp=head;
+   while (temp->next!=NULL)
+   {
+      temp=temp->next;
+   }
+   temp->prev->next=NULL;
+   delete temp;
+}
+
 void MakeCircle(int circle){
    Node* CircleNew = new Node;
    CircleNew->data=circle;
