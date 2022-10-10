@@ -1,27 +1,36 @@
-#include<iostream>
+#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 #define show cout<<
 #define take cin>>
-int main(){
-    float alice_d,alice_time,bob_d,bob_time;
-    int test_cases;
-    take test_cases;
-    for (int i = 0; i < test_cases; i++)
-    {
-        take alice_d>>alice_time>>bob_d>>bob_time;
-        float alice_speed=alice_d/alice_time;
-        float bob_speed=bob_d/bob_time;
-        if (alice_speed<bob_speed)
-        {
-            show "Bob"<<endl;
-        }
-        else if (bob_speed<alice_speed)
-        {
-            show "Alice"<<endl;
-        }
-        else if (bob_speed==alice_speed)
-        {
-            show "Equal"<<endl;
-        }
-        
-}}
+//check who will reach the end first if distance and speeds are given 
+void check(int A,int B,int X,int Y){    
+    float t1,t2;
+    t1=(float)X/A;
+    t2=(float)Y/B;
+    if(t1>t2){
+        show "Chef";
+    }
+    else if(t1<t2){
+        show "Chefina";
+    }
+    else{
+        show "Both";
+    }
+}
+
+
+
+int main() {
+	// your code goes here
+    int test_case;
+    int a,b,x,y;
+    cin>>test_case;
+    for (int i=0;i<test_case;i++){
+        take a>>b>>x>>y;
+        check(a,b,x,y);
+        show endl;
+    }
+	return 0;
+}
+
