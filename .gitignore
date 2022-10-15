@@ -2,6 +2,8 @@ LabAssignment.exe
 tempCodeRunnerFile.cpp
 tempCodeRunnerFile.exe
 *.exe
+*.bin
+*.prob
 Class PPts/Array Address Calculation.pdf
 Class PPts/Arrays.pdf
 Class PPts/Introduction.pdf
