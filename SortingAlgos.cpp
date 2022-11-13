@@ -5,11 +5,7 @@ using namespace std;
 #define show cout<<
 #define take cin>>
 
-void swap(int a,int b){
-    int temp=a;
-    a=b;
-    b=temp;
-}
+
 
 void selection_sort(int arr[],int size){
     int min;
@@ -30,7 +26,13 @@ void selection_sort(int arr[],int size){
 
 void display_arr(int arr[],int size){
     for (int i=0;i<size;i++){
-        cout<<arr[i]<<" , ";
+        cout<<arr[i];
+        if(i==size-1){
+            break;
+        }
+        else {
+            cout<<" , ";
+        }
     }
     cout<<endl;
 }
@@ -74,9 +76,54 @@ void shellsort(int arr[],int n){
     }
 }
 
+int partition(int arr[], int start, int end)
+{
+    int pivot = arr[end];
+    int pIndex = start-1;
+    for (int i=start;i<end;i++){
+        if (arr[i]<=pivot){
+            pIndex++;
+            swap(arr[i],arr[pIndex]);
+        }
+    }
+    swap(arr[pIndex+1],arr[end]);
+    return pIndex+1;
+}
+
+void quickSort(int arr[], int start, int end)
+{
+	if (start >= end)
+		return;
+	int p = partition(arr, start, end);
+	quickSort(arr, start, p - 1);
+	quickSort(arr, p + 1, end);
+}
+
+void countingsort(int arr[],int size, int max){
+    int c[size];
+    for (int i=0;i<=max;i++){
+        c[i]=0;
+    }
+    for (int i=0;i<size;i++){
+        c[arr[i]]+=1;
+    }
+    for (int i=1;i<=max;i++){
+        c[i]=c[i]+c[i-1];
+    }
+    int b[size];
+    for (int i= size-1;i>=0;i--){
+        b[c[arr[i]]]=arr[i];
+        c[arr[i]]-=1;
+    }
+    for (int i=0;i<size;i++){
+        arr[i]=b[i+1];
+    }
+}
+
 int main(){
-    int array[20]={44,32,666,123,78,90,8,12,1000,14,69,7,420,33,83,909,9090909,568,889,343};
-    display_arr(array,20);
-    shellsort(array,20);
-    display_arr(array,20);
+    int arra[20]={44,32,666,123,78,90,8,12,1000,14,69,7,420,33,83,909,9090909,568,889,343};
+    int array[7]={ 6,4,8,1,4,3,2};
+    display_arr(array,7);
+    countingsort(array,7,8);
+    display_arr(array,7);
 }
