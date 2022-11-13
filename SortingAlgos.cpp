@@ -120,6 +120,64 @@ void countingsort(int arr[],int size, int max){
     }
 }
 
+void merge(int array[],int beg,int mid,int end){
+    int i,j,k;
+    int n1= mid-beg+1;  //size of left subarray
+    int n2 = end-mid;   //size of right subarray
+
+    int left[n1],right[n2]; //temp arrays
+
+    for (i = 0; i < n1; i++)
+    {
+        left[i] = array[beg+i];
+    }
+    for (j = 0; j < n2; j++)
+    {
+        right[j] = array[mid+1+j];
+    }
+
+    i=0;
+    j=0;
+    k=beg;
+
+    while (i<n1 && j<n2)
+    {
+        if (left[i]<=right[j])
+        {
+            array[k] = left[i];
+            i++;
+        }
+        else
+        {
+            array[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+    while (i<n1)
+    {
+        array[k] = left[i];
+        i++;
+        k++;
+    }
+    while (j<n2)
+    {
+        array[k] = right[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int a[],int beg,int end){
+    if (beg<end)
+    {
+        int mid = (beg+end)/2;
+        mergeSort(a,beg,mid);
+        mergeSort(a,mid+1,end);
+        merge(a,beg,mid,end);
+    }
+}
+
 int main(){
     int arra[20]={44,32,666,123,78,90,8,12,1000,14,69,7,420,33,83,909,9090909,568,889,343};
     int array[7]={ 6,4,8,1,4,3,2};
