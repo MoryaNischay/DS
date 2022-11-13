@@ -193,3 +193,28 @@ void MiddleNode(){
 	}
 	show "Middle of Node is: " << dump->data;
 }
+ 
+
+//function to delete all the iterations of a number in the list
+
+void del(int key){
+    Node *temp=head;
+    Node *temp1=head;
+    
+    while(temp!=NULL){
+        if (head->data==key){
+            head=head->next;
+            free(temp);
+            temp=head;
+        }
+        else if (temp->data==key){
+            temp1->next=temp->next;
+            free(temp);
+            temp=temp1->next;
+        }
+        else{
+            temp1=temp;
+            temp=temp->next;
+        }
+    }
+}

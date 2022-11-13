@@ -13,7 +13,12 @@ int main(){
         MakeSinglyList(ListArray[i]);
     }
     
+    show "Linked List: \t";
     OutSinglyList(head);
-    ReverseList (head);
+    show "Enter the number to delete: "<<endl;
+    int delkey;
+    take delkey;
+    del(delkey);
+    show "Linked List: \t";
     OutSinglyList(head);
 }
