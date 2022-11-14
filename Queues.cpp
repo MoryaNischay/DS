@@ -4,75 +4,94 @@ using namespace std;
 #define show cout<<
 #define take cin>>
 #define after ->next
-#define space <<" "
-#define finl <<endl;
 #include<stdlib.h>
 #define Maxq 100
-struct queue{
-    int array[Maxq];
-    int front,rear;
-};
 
-queue init(){
-    queue Q;
-    Q.front=Q.rear=-1;
-    return Q;
-}
-
-int isFull( queue q ){
-    return (q.rear==Maxq-1);
-}
-
-int isEmpty(queue q ){
-    return ((q.front==-1) || (q.front>q.rear));
-}
-
-queue enqueue(queue a,int n){
-    if (isFull(a)){
-        show "Overflow";
+class Queue{
+    int front;
+    int rear;
+    int *arr;
+    public:
+    void create(){
+        front=rear=-1;
+        arr=new int[Maxq];
     }
-    else if (isEmpty(a)){
-        a.front=a.rear=0;
-        a.array[a.rear]=n;
-    }
-    else {
-        ++a.rear;
-        a.array[a.rear]=n;
-    }
-    return a;
-}
 
-queue dequeue(queue b){
-    if (isEmpty(b))
-    {
-        show "UnderFlow";
+    bool isEmpty(){
+        if (front ==-1 && rear==-1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else {
-        b.front++;
-    }
-    return b;
-}
 
-void print(queue t){
-    int i;
-    for ( i = t.front; i <=t.rear; i++)
-    {
-        /* code */
-        show t.array[i]<<" ";
+    bool isFull(){
+        if (rear==Maxq-1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    void enqueue(int val){
+        if (isFull()){
+            show "Queue is full"<<endl;
+        }
+        else if (isEmpty()){
+            front=rear=0;
+            arr[rear]=val;
+        }
+        else{
+            rear++;
+            arr[rear]=val;
+        }
+    }
+
+    void dequeue(){
+        if (isEmpty()){
+            show "Queue is empty"<<endl;
+        }
+        else {
+            show "Dequeued element is: "<<arr[front]<<endl;
+            front++;
+        }
+    }
+
+    void display(){
+        if (isEmpty()){
+            show "Queue is empty"<<endl;
+        }
+        else{
+            for (int i=front;i<=rear;i++){
+                show arr[i]<<" ";
+            }
+            show endl;
+        }
+    }
+
+    void count(){
+        if (isEmpty()){
+            show "Queue is empty" <<endl;
+        }
+        else{
+            show "Number of elements in the queue is: "<<rear-front+1<<endl;
+        }
     }
     
-}
+};
 
 int main(){
-    queue Q;
-    Q=init();
-    Q=enqueue(Q,5);
-    Q=enqueue(Q,3);
-    Q=enqueue(Q,7);
-    Q=enqueue(Q,9);
-    Q=enqueue(Q,3);
-    Q=enqueue(Q,1);
-    show "Current Queue: ";
-    print(Q);
+    Queue q;
+    q.create();
+    q.enqueue(2);
+    q.enqueue(44);
+    q.enqueue(54);
+    q.enqueue(33);
+    q.display();
+    q.dequeue();
+    q.dequeue();
+    q.display();
 }
 
