@@ -5,7 +5,16 @@ using namespace std;
 #define show cout<<
 #define take cin>>
 
-
+/* Time complexities: 
+selection sort = O(n^2)
+Bubble sort = O(n^2) best is O(n)
+Insertion Sort = O(n^2) best is O(n)
+Quick sort = O(n^2) best and average are O(nlogn)
+Merge sort = O(nlogn)
+Counting sort = O(n+k) 
+Shell sort = O(n^2) best and average are O(nlogn)
+Radix sort = O(nk);
+*/
 
 void selection_sort(int arr[],int size){
     int min;
@@ -175,6 +184,32 @@ void mergeSort(int a[],int beg,int end){
         mergeSort(a,beg,mid);
         mergeSort(a,mid+1,end);
         merge(a,beg,mid,end);
+    }
+}
+
+void radix_sort(int arr[],int size){
+    int max=arr[0];
+    for (int i=1;i<size;i++){
+        if (arr[i]>max){
+            max=arr[i];
+        }
+    }
+    for (int exp=1;max/exp>0;exp*=10){
+        int output[size];
+        int i,count[10]={0};
+        for (i=0;i<size;i++){
+            count[(arr[i]/exp)%10]++;
+        }
+        for (i=1;i<10;i++){
+            count[i]+=count[i-1];
+        }
+        for (i=size-1;i>=0;i--){
+            output[count[(arr[i]/exp)%10]-1]=arr[i];
+            count[(arr[i]/exp)%10]--;
+        }
+        for (i=0;i<size;i++){
+            arr[i]=output[i];
+        }
     }
 }
 

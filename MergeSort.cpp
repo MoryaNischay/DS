@@ -1,61 +1,72 @@
 #include<iostream>
 using namespace std;
 
-void merge(int array[],int beg,int mid,int end){
-    int i,j,k;
-    int n1= mid-beg+1;  //size of left subarray
-    int n2 = end-mid;   //size of right subarray
-
-    int left[n1],right[n2]; //temp arrays
-
-    for (i = 0; i < n1; i++)
-    {
-        left[i] = array[beg+i];
-    }
-    for (j = 0; j < n2; j++)
-    {
-        right[j] = array[mid+1+j];
-    }
-
-    i=0;
-    j=0;
-    k=beg;
-
-    while (i<n1 && j<n2)
-    {
-        if (left[i]<=right[j])
-        {
-            array[k] = left[i];
-            i++;
+void insertion_sort(int arr[],int size){
+    for (int i=0;i<size;i++){
+        int temp = arr[i];
+        int j=i;
+        while(j>0 && arr[j-1]>temp){
+            arr[j]=arr[j-1];
+            j--;
         }
-        else
-        {
-            array[k] = right[j];
-            j++;
-        }
-        k++;
-    }
-    while (i<n1)
-    {
-        array[k] = left[i];
-        i++;
-        k++;
-    }
-    while (j<n2)
-    {
-        array[k] = right[j];
-        j++;
-        k++;
+        arr[j]=temp;
     }
 }
 
-void mergeSort(int a[],int beg,int end){
-    if (beg<end)
-    {
-        int mid = (beg+end)/2;
-        mergeSort(a,beg,mid);
-        mergeSort(a,mid+1,end);
-        merge(a,beg,mid,end);
+void shell_sort(int arr[],int size){
+    for (int gap=size/2;gap>0;gap/=2){
+        for (int i=gap;i<size;i++){
+            int temp = arr[i];
+            int j;
+            for (j=i;j>=gap && arr[j-gap]>temp;j-=gap){
+                arr[j]=arr[j-gap];
+            }
+            arr[j]=temp;
+        }
+    }
+}
+
+int partition(int arr[], int start, int end)
+{
+    int pivot = arr[end];
+    int pIndex = start-1;
+    for (int i=start;i<end;i++){
+        if (arr[i]<=pivot){
+            pIndex++;
+            swap(arr[i],arr[pIndex]);
+        }
+    }
+    swap(arr[pIndex+1],arr[end]);
+    return pIndex+1;
+}
+
+void quickSort(int arr[], int start, int end)
+{
+	if (start >= end)
+		return;
+	int p = partition(arr, start, end);
+	quickSort(arr, start, p - 1);
+	quickSort(arr, p + 1, end);
+}
+
+void countingsort(int arr[],int size,int max){
+    int c[max];
+    for (int i=0;i<=max;i++){
+        c[i]=0;
+    }
+    for (int i=0;i<size;i++){
+        c[arr[i]]+=1; 
+    }
+    for (int i=1;i<=max;i++){
+        c[i]=c[i]+c[i-1];
+    }
+    int b[size];
+    for (int i=size-1;i>=0;i--){
+        b[c[arr[i]]] = arr[i];
+        c[arr[i]]-=1;
+    }
+    for (int i=0;i<size;i++){
+        arr[i]=b[i+1];
     }
 }
 
@@ -76,7 +87,7 @@ int main()
     cout << "Given array is \n";
     printArray(arr, arr_size);
   
-    mergeSort(arr, 0, arr_size - 1);
+    countingsort(arr,arr_size,13);
   
     cout << "\nSorted array is \n";
     printArray(arr, arr_size);
