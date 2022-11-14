@@ -8,20 +8,19 @@ using namespace std;
 #define Maxq 100
 
 class Queue{
-    int front;
-    int rear;
-    int *arr;
+    int front,rear;
+    int* arr;
     public:
     void create(){
         front=rear=-1;
-        arr=new int[Maxq];
+        arr = new int[Maxq];
     }
 
     bool isEmpty(){
-        if (front ==-1 && rear==-1){
+        if (rear==-1){
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
@@ -30,44 +29,54 @@ class Queue{
         if (rear==Maxq-1){
             return true;
         }
-        else{
+        else {
             return false;
         }
     }
 
     void enqueue(int val){
         if (isFull()){
-            show "Queue is full"<<endl;
+            show "Queue is full";
         }
-        else if (isEmpty()){
-            front=rear=0;
-            arr[rear]=val;
-        }
-        else{
-            rear++;
+        else {
+            if (isEmpty()){
+                front=rear=0;
+            }
+            else {
+                rear++;
+            }
             arr[rear]=val;
         }
     }
 
+    // void display(){
+    //     if (isEmpty()){
+    //         cout<<"Queue is empty "<<endl;
+    //     }
+    //     else {
+    //         for (int i=0;i<) 
+    //     }
+    // }
+
     void dequeue(){
         if (isEmpty()){
-            show "Queue is empty"<<endl;
+            cout<<"Queue is empty"<<endl;
         }
         else {
-            show "Dequeued element is: "<<arr[front]<<endl;
+            cout<<"Dequeued element is: "<<arr[front]<<endl;
             front++;
         }
     }
 
     void display(){
         if (isEmpty()){
-            show "Queue is empty"<<endl;
+            cout<<"Queue is empty"<<endl;
         }
-        else{
+        else {
             for (int i=front;i<=rear;i++){
-                show arr[i]<<" ";
+                cout<<arr[i]<<" ";
             }
-            show endl;
+            cout<<endl;
         }
     }
 

@@ -29,15 +29,15 @@ void shell_sort(int arr[],int size){
 int partition(int arr[], int start, int end)
 {
     int pivot = arr[end];
-    int pIndex = start-1;
+    int pivotIndex=start-1;
     for (int i=start;i<end;i++){
         if (arr[i]<=pivot){
-            pIndex++;
-            swap(arr[i],arr[pIndex]);
+            pivotIndex++;
+            swap(arr[i],arr[pivotIndex]);
         }
     }
-    swap(arr[pIndex+1],arr[end]);
-    return pIndex+1;
+    swap(arr[pivotIndex+1],arr[end]);
+    return pivotIndex+1;
 }
 
 void quickSort(int arr[], int start, int end)
@@ -49,24 +49,24 @@ void quickSort(int arr[], int start, int end)
 	quickSort(arr, p + 1, end);
 }
 
-void countingsort(int arr[],int size,int max){
-    int c[max];
-    for (int i=0;i<=max;i++){
-        c[i]=0;
-    }
+void counting_sort(int arr[],int size){
+    int max=arr[0];
     for (int i=0;i<size;i++){
-        c[arr[i]]+=1; 
+        if (arr[i]>max){
+            max=arr[i];
+        }
     }
-    for (int i=1;i<=max;i++){
-        c[i]=c[i]+c[i-1];
-    }
-    int b[size];
-    for (int i=size-1;i>=0;i--){
-        b[c[arr[i]]] = arr[i];
-        c[arr[i]]-=1;
-    }
+    int count[max+1]={0};
     for (int i=0;i<size;i++){
-        arr[i]=b[i+1];
+        count[arr[i]]++;
+    }
+    int j=0;
+    for (int i=0;i<max+1;i++){
+        while (count[i]>0){
+            arr[j]=i;
+            j++;
+            count[i]--;
+        }
     }
 }
 
@@ -87,7 +87,7 @@ int main()
     cout << "Given array is \n";
     printArray(arr, arr_size);
   
-    countingsort(arr,arr_size,13);
+    quickSort(arr,0,5);
   
     cout << "\nSorted array is \n";
     printArray(arr, arr_size);
