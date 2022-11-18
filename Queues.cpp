@@ -49,14 +49,6 @@ class Queue{
         }
     }
 
-    // void display(){
-    //     if (isEmpty()){
-    //         cout<<"Queue is empty "<<endl;
-    //     }
-    //     else {
-    //         for (int i=0;i<) 
-    //     }
-    // }
 
     void dequeue(){
         if (isEmpty()){

@@ -84,6 +84,7 @@ bt_node Minimum(bt_node *node){
 
 bt_node *insert(bt_node *n,int key){
     if (n->data==NULL){
+        n->data = key;
         return n;
     }
     if (key<n->data){
@@ -114,6 +115,36 @@ bt_node treesuc(bt_node *y,bt_node *node){
     }
     return *succ;
 }
+
+bt_node *deletenode(bt_node *node,int key){
+    if (node==NULL){ 
+        return node;
+    }
+    if (key<node->data){
+        node->left=deletenode(node->left,key);
+    }
+    else if (key>node->data){
+        node->right=deletenode(node->right,key);
+    }
+    else {
+        if (node->left==NULL){
+            bt_node *temp = node->right;
+            delete node;
+            return temp;
+        }
+        else if (node->right==NULL){
+            bt_node *temp = node->left;
+            delete node;
+            return temp;
+        }
+        bt_node temp = treesuc(node,node->right);
+        node->data=temp.data;
+        node->right=deletenode(node->right,temp.data);
+    }
+    return node;
+}
+
+
 
 int main(){
     bt_node *root = NULL;
