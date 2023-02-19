@@ -1,95 +1,172 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
 
-void insertion_sort(int arr[],int size){
-    for (int i=0;i<size;i++){
-        int temp = arr[i];
-        int j=i;
-        while(j>0 && arr[j-1]>temp){
-            arr[j]=arr[j-1];
-            j--;
+//iterative merge sort
+void merge(vector<int> &v, int s, int e){
+    int mid = (s+e)/2;
+    int i = s;
+    int j = mid+1;
+    vector<int> temp;
+    while(i<=mid && j<=e){
+        if(v[i]<v[j]){
+            temp.push_back(v[i]);
+            i++;
         }
-        arr[j]=temp;
-    }
-}
-
-void shell_sort(int arr[],int size){
-    for (int gap=size/2;gap>0;gap/=2){
-        for (int i=gap;i<size;i++){
-            int temp = arr[i];
-            int j;
-            for (j=i;j>=gap && arr[j-gap]>temp;j-=gap){
-                arr[j]=arr[j-gap];
-            }
-            arr[j]=temp;
-        }
-    }
-}
-
-int partition(int arr[], int start, int end)
-{
-    int pivot = arr[end];
-    int pivotIndex=start-1;
-    for (int i=start;i<end;i++){
-        if (arr[i]<=pivot){
-            pivotIndex++;
-            swap(arr[i],arr[pivotIndex]);
-        }
-    }
-    swap(arr[pivotIndex+1],arr[end]);
-    return pivotIndex+1;
-}
-
-void quickSort(int arr[], int start, int end)
-{
-	if (start >= end)
-		return;
-	int p = partition(arr, start, end);
-	quickSort(arr, start, p - 1);
-	quickSort(arr, p + 1, end);
-}
-
-void counting_sort(int arr[],int size){
-    int max=arr[0];
-    for (int i=0;i<size;i++){
-        if (arr[i]>max){
-            max=arr[i];
-        }
-    }
-    int count[max+1]={0};
-    for (int i=0;i<size;i++){
-        count[arr[i]]++;
-    }
-    int j=0;
-    for (int i=0;i<max+1;i++){
-        while (count[i]>0){
-            arr[j]=i;
+        else{
+            temp.push_back(v[j]);
             j++;
-            count[i]--;
         }
+    }
+    while(i<=mid){
+        temp.push_back(v[i]);
+        i++;
+    }
+    while(j<=e){
+        temp.push_back(v[j]);
+        j++;
+    }
+    int k = 0;
+    for (int i = s; i <= e; i++)
+    {
+        v[i] = temp[k];
+        k++;
     }
 }
 
-void printArray(int arr[], int size)
-{
-    for (int i = 0; i < size; i++)
+void mergeSort(vector<int> &v, int s, int e){
+    if(s>=e){
+        return;
+    }
+    int mid = (s+e)/2;
+    mergeSort(v,s,mid);
+    mergeSort(v,mid+1,e);
+    merge(v,s,e);
+}
+
+int main(){
+    //unsorted array of random numbers
+    vector<int> v{123,41,2154,16134,8674,2345,3456,54,234,512};
+    int n = v.size();
+    int key;
+    for (int i = 0; i < n; i++)
     {
-        cout<<arr[i]<<" ";
+        cout<<v[i]<<" ";
     }
     cout<<endl;
+    mergeSort(v,0,n-1);
+    for (int i = 0; i < n; i++)
+    {
+        cout<<v[i]<<" ";
+    }
 }
+//Iterative Merge Sort
 
-int main()
-{
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    auto arr_size = sizeof(arr) / sizeof(arr[0]);
-  
-    cout << "Given array is \n";
-    printArray(arr, arr_size);
-  
-    quickSort(arr,0,5);
-  
-    cout << "\nSorted array is \n";
-    printArray(arr, arr_size);
-    return 0;
-}
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// void merge(int arr[], int l, int m, int r);
+// int min(int x, int y) { return (x<y)? x :y; }
+
+
+// void mergeSort(int arr[], int n)
+// {
+// int curr_size; // For current size of subarrays to be merged
+// 				// curr_size varies from 1 to n/2
+// int left_start; // For picking starting index of left subarray
+// 				// to be merged
+
+// // Merge subarrays in bottom up manner. First merge subarrays of
+// // size 1 to create sorted subarrays of size 2, then merge subarrays
+// // of size 2 to create sorted subarrays of size 4, and so on.
+// for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
+// {
+// 	// Pick starting point of different subarrays of current size
+// 	for (left_start=0; left_start<n-1; left_start += 2*curr_size)
+// 	{
+// 		// Find ending point of left subarray. mid+1 is starting
+// 		// point of right
+// 		int mid = min(left_start + curr_size - 1, n-1);
+
+// 		int right_end = min(left_start + 2*curr_size - 1, n-1);
+
+// 		// Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
+// 		merge(arr, left_start, mid, right_end);
+// 	}
+// }
+// }
+
+// /* Function to merge the two haves arr[l..m] and arr[m+1..r] of array arr[] */
+// void merge(int arr[], int l, int m, int r)
+// {
+// 	int i, j, k;
+// 	int n1 = m - l + 1;
+// 	int n2 = r - m;
+
+// 	/* create temp arrays */
+// 	int L[n1], R[n2];
+
+// 	/* Copy data to temp arrays L[] and R[] */
+// 	for (i = 0; i < n1; i++)
+// 		L[i] = arr[l + i];
+// 	for (j = 0; j < n2; j++)
+// 		R[j] = arr[m + 1+ j];
+
+// 	/* Merge the temp arrays back into arr[l..r]*/
+// 	i = 0;
+// 	j = 0;
+// 	k = l;
+// 	while (i < n1 && j < n2)
+// 	{
+// 		if (L[i] <= R[j])
+// 		{
+// 			arr[k] = L[i];
+// 			i++;
+// 		}
+// 		else
+// 		{
+// 			arr[k] = R[j];
+// 			j++;
+// 		}
+// 		k++;
+// 	}
+
+// 	/* Copy the remaining elements of L[], if there are any */
+// 	while (i < n1)
+// 	{
+// 		arr[k] = L[i];
+// 		i++;
+// 		k++;
+// 	}
+
+// 	/* Copy the remaining elements of R[], if there are any */
+// 	while (j < n2)
+// 	{
+// 		arr[k] = R[j];
+// 		j++;
+// 		k++;
+// 	}
+// }
+
+
+// void printArray(int A[], int size)
+// {
+// 	int i;
+// 	for (i=0; i < size; i++)
+// 		cout <<" "<< A[i];
+// 	cout <<"\n";
+// }
+
+// int main()
+// {
+// 	int arr[] = {12, 11, 13, 5, 6, 7};
+// 	int n = sizeof(arr)/sizeof(arr[0]);
+
+// 	cout <<"Given array is \n ";
+// 	printArray(arr, n);
+
+// 	mergeSort(arr, n);
+
+// 	cout <<"\nSorted array is \n ";
+// 	printArray(arr, n);
+// 	return 0;
+// }

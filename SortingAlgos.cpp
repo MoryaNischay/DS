@@ -218,6 +218,6 @@ int main(){
     int arra[20]={44,32,666,123,78,90,8,12,1000,14,69,7,420,33,83,909,9090909,568,889,343};
     int array[7]={ 6,4,8,1,4,3,2};
     display_arr(arra,20);
-    mergeSort(arra,0,19);
+    quickSort(arra,0,20);
     display_arr(arra,20);
 }
