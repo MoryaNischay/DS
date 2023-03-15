@@ -23,7 +23,7 @@ void activitySelection(vector <int> start,vector <int> finish){
 
 
 int main(){
-    vector <int> v1{10,12,20};
-    vector <int> v2{20,25,30};
+    vector <int> v1{0,1,3,5,5,8};
+    vector <int> v2{6,2,4,7,9,9};
     activitySelection(v1,v2);
 }

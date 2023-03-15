@@ -1,45 +1,65 @@
 #include<bits/stdc++.h>
-using namespace std;
+using namespace std; 
 
-struct Job{
-    int id;
-    int deadline;
-    int profit;
-};
 
-bool compare(Job a, Job b){
-    return a.profit > b.profit;
-}
+struct Job 
+{ 
+    int id;	 // Job Id 
+    int dead; // Deadline of job 
+    int profit; // Profit if job is over before or on deadline 
+}; 
 
-void JobSequence(vector <Job> jobs){
-    sort(jobs.begin(), jobs.end(), compare);
-    int maxDeadline = 0;
-    for(int i = 0; i < jobs.size(); i++){
-        maxDeadline = max(maxDeadline, jobs[i].deadline);
-    }
-    vector <int> slot(maxDeadline, -1);
-    int profit = 0;
-    for(int i = 0; i < jobs.size(); i++){
-        for(int j = jobs[i].deadline - 1; j >= 0; j--){
-            if(slot[j] == -1){
-                slot[j] = i;
-                profit += jobs[i].profit;
-                break;
+class Solution 
+{
+    public:
+    bool static compare(Job a,Job b){
+        return a.profit>b.profit;
+    }  
+    vector<int> JobScheduling(vector<Job> arr, int n) 
+    { 
+        sort(arr.begin(),arr.end(),compare);
+        int maxdead=arr[0].dead;
+        for (int i=1;i<n;i++){
+            maxdead=max(arr[i].dead,maxdead);
+        }
+        vector<int> gant(maxdead+1,-1);
+        int countjob=0,jobprofit=0;
+        for (int i=0;i<n;i++){
+            for (int j=arr[i].dead;j>0;j--){
+                if (gant[j]==-1){
+                    gant[j]=i;
+                    countjob++;
+                    jobprofit+=arr[i].profit;
+                    break;
+                }
             }
         }
-    }
-    cout << "Profit: " << profit << endl;
-    cout << "Job Sequence: ";
-    for(int i = 0; i < slot.size(); i++){
-        if(slot[i] != -1){
-            cout << jobs[slot[i]].id << " ";
-        }
-    }
-    cout << endl;
-}
+        vector<int> v1;
+        v1.push_back(countjob);
+        v1.push_back(jobprofit);
+        return v1;
+    } 
+};
 
-int main(){
-    vector <Job> jobs = {{1, 4, 20}, {2, 1, 10}, {3, 1, 40}, {4, 1, 30}};
-    JobSequence(jobs);
-    return 0;
+int main() 
+{ 
+    int t;
+    cin >> t;
+    
+    while(t--){
+        int n;
+        cin >> n;
+        vector<Job> arr(n);
+        for(int i = 0;i<n;i++){
+                int x, y, z;
+                cin >> x >> y >> z;
+                arr[i].id = x;
+                arr[i].dead = y;
+                arr[i].profit = z;
+        }
+        Solution ob;
+        vector<int> ans = ob.JobScheduling(arr, n);
+        cout<<ans[0]<<" "<<ans[1]<<endl;
+    }
+	return 0; 
 }

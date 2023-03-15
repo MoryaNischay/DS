@@ -1,7 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-//iterative merge sort
 void merge(vector<int> &v, int s, int e){
     int mid = (s+e)/2;
     int i = s;
@@ -89,7 +88,7 @@ int main(){
 
 // 		int right_end = min(left_start + 2*curr_size - 1, n-1);
 
-// 		// Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
+
 // 		merge(arr, left_start, mid, right_end);
 // 	}
 // }
