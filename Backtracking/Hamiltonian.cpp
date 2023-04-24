@@ -4,8 +4,6 @@ using namespace std;
 
 #define V 5
 
-void printSolution(int path[]);
-
 bool isSafe(int v, bool graph[V][V],
 			int path[], int pos)
 {
@@ -18,8 +16,7 @@ bool isSafe(int v, bool graph[V][V],
 	return true;
 }
 
-bool hamCycleUtil(bool graph[V][V],
-				int path[], int pos)
+bool hamCycleUtil(bool graph[V][V],int path[], int pos)
 {
 	if (pos == V)
 	{
