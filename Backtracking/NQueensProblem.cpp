@@ -1,63 +1,52 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-const int n =4;
-bool Safe(int board[n][n],int row,int col){
-    int i,j;
-    for (i=0;i<col;i++){
-        if(board[row][i]==1){
-            return false;
+class Solution {
+  public:
+    void solve(int col, vector < string > & board, vector < vector < string >> & ans, vector < int > & leftrow, vector < int > & upperDiagonal, vector < int > & lowerDiagonal, int n) {
+      if (col == n) {
+        ans.push_back(board);
+        return;
+      }
+      for (int row = 0; row < n; row++) {
+        if (leftrow[row] == 0 && lowerDiagonal[row + col] == 0 && upperDiagonal[n - 1 + col - row] == 0) {
+          board[row][col] = 'Q';
+          leftrow[row] = 1;
+          lowerDiagonal[row + col] = 1;
+          upperDiagonal[n - 1 + col - row] = 1;
+          solve(col + 1, board, ans, leftrow, upperDiagonal, lowerDiagonal, n);
+          board[row][col] = '.';
+          leftrow[row] = 0;
+          lowerDiagonal[row + col] = 0;
+          upperDiagonal[n - 1 + col - row] = 0;
         }
+      }
     }
 
-    for (i=row,j=col;i>=0 && j>=0;i--,j--){
-        if(board[i][j]==1){
-            return false;
-        }
+  public:
+    vector < vector < string >> solveNQueens(int n) {
+      vector < vector < string >> ans;
+      vector < string > board(n);
+      string s(n, '.');
+      for (int i = 0; i < n; i++) {
+        board[i] = s;
+      }
+      vector < int > leftrow(n, 0), upperDiagonal(2 * n - 1, 0), lowerDiagonal(2 * n - 1, 0);
+      solve(0, board, ans, leftrow, upperDiagonal, lowerDiagonal, n);
+      return ans;
     }
-
-    for (i=row,j=col;i<n && j>=0;i++,j--){
-        if(board[i][j]==1){
-            return false;
-        }
+};
+int main() {
+  int n = 4; // we are taking 4*4 grid and 4 queens
+  Solution obj;
+  vector < vector < string >> ans = obj.solveNQueens(n);
+  for (int i = 0; i < ans.size(); i++) {
+    cout << "Arrangement " << i + 1 << "\n";
+    for (int j = 0; j < ans[0].size(); j++) {
+      cout << ans[i][j];
+      cout << endl;
     }
-    return true;
-
-}
-
-bool solve(int board[n][n],int col){
-    if(col>=n){
-        return true;
-    }
-    for(int i=0;i<n;i++){
-        if(Safe(board,i,col)){
-            board[i][col]=1;
-            if(solve(board,col+1)){
-                return true;
-            }
-            board[i][col]=0;
-        }
-    }
-    return false;
-}
-
-int main(){
-    int q=4;
-    int board[n][n];
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            board[i][j]=0;
-        }
-    }
-    
-    if(solve(board,0)==false){
-        cout<<"Solution does not exist";
-    }
-    else{
-        for(int i=0;i<n;i++){
-            for(int j=0;j<n;j++){
-                cout<<board[i][j]<<" ";
-            }
-            cout<<endl;
-        }
-    }
+    cout << endl;
+  }
+  return 0;
 }
