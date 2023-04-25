@@ -8,15 +8,15 @@ void displaySubset(vector<int> &subSet, int size) {
    cout << endl;
 }
 
-void subsetSum(vector<int> &set, vector<int> &subSet, int n, int subSize, int total, int nodeCount ,int sum) {
+void subsetSum(vector<int> &set, vector<int> &subSet, int size, int subSize, int total, int nodeCount ,int sum) {
    if( total == sum) {
       displaySubset(subSet, subSize);     //print the subset
-      subsetSum(set,subSet,n,subSize-1,total-set[nodeCount],nodeCount+1,sum);     //for other subsets
+      subsetSum(set,subSet,size,subSize-1,total-set[nodeCount],nodeCount+1,sum);     //for other subsets
       return;
    }else {
-      for( int i = nodeCount; i < n; i++ ) {     //find node along breadth
+      for( int i = nodeCount; i < size; i++ ) {     //find node along breadth
          subSet[subSize] = set[i];
-         subsetSum(set,subSet,n,subSize+1,total+set[i],i+1,sum);     //do for next node in depth
+         subsetSum(set,subSet,size,subSize+1,total+set[i],i+1,sum);     //do for next node in depth
       }
    }
 }
