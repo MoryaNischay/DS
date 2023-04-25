@@ -4,6 +4,8 @@ using namespace std;
 
 #define V 5
 
+void printSolution(int path[]);
+
 bool isSafe(int v, bool graph[V][V],
 			int path[], int pos)
 {
